@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zighra.kineticsdkquickstartexample">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.Base">
+        <activity android:name=".LoginActivity"  android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".GestureAuthActivity"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--Configure the SDK-->
+        <meta-data
+            android:name="zighra_app_key"
+            android:value="8SrW24sl12gaD6M" />
+        <meta-data
+            android:name="zighra_app_secret"
+            android:value="AxqPoKZCizXm6bMxFEC6ONTgp6u63Oyzl2zIb8F+iGWNShS0LdLBf0ZwXiNaTlTvqg=="/>
+        <meta-data
+            android:name="zighra_app_encryption"
+            android:value="false" />
+    </application>
+
+</manifest>
