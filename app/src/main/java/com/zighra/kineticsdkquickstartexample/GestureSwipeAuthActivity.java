@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 public class GestureSwipeAuthActivity extends AppCompatActivity {
 
-    private static final String TAG  =  "GestureSwipeAuthActivity";
+    private static final String TAG  =  "SwipeAuth";
 
     private Kinetic mKinetic;
     private Button mGestureButton;
@@ -34,52 +34,50 @@ public class GestureSwipeAuthActivity extends AppCompatActivity {
 
         //Integrate Gesture Authentication
         mKinetic = KineticFactory.getKinetic(this);
-        mKinetic.attachSwipeAuthenticator(mGestureButton, new Kinetic.OnAuthenticationSuccessListener() {
-            @Override
-            public void onSuccess(Kinetic.AuthenticationResponse authenticationResponse) {
-                try {
-                    JSONObject data;
-                    JSONObject authResponse;
-
-                    Kinetic.AuthStatus status = authenticationResponse.getStatus();
-                    switch (status){
-                        case  modelNotReady:
-                            Toast.makeText(getApplicationContext(), "Training in progress", Toast.LENGTH_SHORT).show();
-                            mKinetic.reportActionForAuth("allow", new Kinetic.OnReportActionSuccessListener() {
-                                @Override
-                                public void onSuccess(Kinetic.ReportResponse reportResponse) {
-                                    Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
-                                }
-                            }, new Kinetic.OnReportActionFailureListener() {
-                                @Override
-                                public void onFailure(Kinetic.ReportResponse reportResponse) {
-
-                                }
-                            });
-                            break;
-                        case success:
-                            // Examine the gesture score (swipePer)
-                            if(authenticationResponse.getScore() > swipeThreshold  ) {
-                                // Gesture authenticated successfully. Respond with report action-allow
-                                Toast.makeText(getApplicationContext(), "Gesture authenticated", Toast.LENGTH_SHORT).show();
-                                //Action Reporting
+        mKinetic.attachSwipeAuthenticator(mGestureButton,
+                new Kinetic.OnAuthenticationSuccessListener() {
+                     @Override
+                     public void onSuccess(Kinetic.AuthenticationResponse authenticationResponse) {
+                     try {
+                         Kinetic.AuthStatus status = authenticationResponse.getStatus();
+                         switch (status){
+                           case  modelNotReady:
+                                Toast.makeText(getApplicationContext(), "Training in progress", Toast.LENGTH_SHORT).show();
                                 mKinetic.reportActionForAuth("allow", new Kinetic.OnReportActionSuccessListener() {
                                     @Override
                                     public void onSuccess(Kinetic.ReportResponse reportResponse) {
                                         Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
-
                                     }
                                 }, new Kinetic.OnReportActionFailureListener() {
                                     @Override
                                     public void onFailure(Kinetic.ReportResponse reportResponse) {
-                                        Toast.makeText(getApplicationContext(), "Report action failed: " + reportResponse.getErrorMessage().toString(), Toast.LENGTH_SHORT).show();
+
                                     }
                                 });
-                            } else {
-                                // Authentication failed. Present authentication UI.
-                                Log.d(TAG,"Gesture failed");
-                                Toast.makeText(getApplicationContext(), "Gesture not authenticated", Toast.LENGTH_SHORT).show();
-                            }
+                            break;
+                            case success:
+                                // Examine the gesture score
+                                if(authenticationResponse.getScore() > swipeThreshold  ) {
+                                    // Gesture authenticated successfully. Respond with report action-allow
+                                    Toast.makeText(getApplicationContext(), "Gesture authenticated", Toast.LENGTH_SHORT).show();
+                                    //Action Reporting
+                                    mKinetic.reportActionForAuth("allow", new Kinetic.OnReportActionSuccessListener() {
+                                        @Override
+                                        public void onSuccess(Kinetic.ReportResponse reportResponse) {
+                                            Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }, new Kinetic.OnReportActionFailureListener() {
+                                        @Override
+                                        public void onFailure(Kinetic.ReportResponse reportResponse) {
+                                            Toast.makeText(getApplicationContext(), "Report action failed: " + reportResponse.getErrorMessage().toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    // Authentication failed. Present authentication UI.
+                                    Log.d(TAG, "Gesture failed");
+                                    Toast.makeText(getApplicationContext(), "Gesture not authenticated", Toast.LENGTH_SHORT).show();
+                                }
                             break;
                         default:
                             Toast.makeText(getApplicationContext(), "Gesture authenticated failure"+authenticationResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();

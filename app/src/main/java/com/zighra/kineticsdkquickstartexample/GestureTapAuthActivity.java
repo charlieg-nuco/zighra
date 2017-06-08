@@ -68,7 +68,9 @@ public class GestureTapAuthActivity extends AppCompatActivity {
 
             }
         });
-        mKinetic.attachTapAuthenticator(mTap2, "tap2", new Kinetic.KineticTouchListener() {
+
+        //Either passing null in context or no context specified means attaching button to last used context.
+        mKinetic.attachTapAuthenticator(mTap2, null, "tap2", new Kinetic.KineticTouchListener() {
             @Override
             public void onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP){
@@ -91,7 +93,9 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                 }
             }
         });
-        mKinetic.attachTapAuthenticator(mSubmit, "tap3", Kinetic.ControlType.FINISH, new Kinetic.OnWillAuthenticationListener() {
+
+        mKinetic.attachTapAuthenticator(mSubmit, "tap3", Kinetic.ControlType.FINISH,
+                new Kinetic.OnWillAuthenticationListener() {
                     @Override
                     public void onWillAuthentication() {
                         runOnUiThread(new Runnable() {
@@ -101,7 +105,8 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }, new Kinetic.OnAuthenticationSuccessListener() {
+                },
+                new Kinetic.OnAuthenticationSuccessListener() {
                     @Override
                     public void onSuccess(final Kinetic.AuthenticationResponse authenticationResponse) {
                         try {
@@ -109,8 +114,8 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                             JSONObject authResponse;
 
                             Kinetic.AuthStatus status = authenticationResponse.getStatus();
-                            switch (status){
-                                case  modelNotReady:
+                            switch (status) {
+                                case modelNotReady:
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -124,7 +129,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getReplace(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
 
@@ -143,7 +148,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                     break;
                                 case success:
                                     // Examine the gesture score (swipePer)
-                                    if(authenticationResponse.getScore() > swipeThreshold  ) {
+                                    if (authenticationResponse.getScore() > swipeThreshold) {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -158,7 +163,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                                 runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getReplace(), Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                             }
@@ -175,7 +180,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                         });
                                     } else {
                                         // Authentication failed. Present authentication UI.
-                                        Log.d(TAG,"Gesture failed");
+                                        Log.d(TAG, "Gesture failed");
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -189,16 +194,17 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(getApplicationContext(), "Gesture authenticated failure"+authenticationResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Gesture authenticated failure" + authenticationResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                     break;
                             }
-                        } catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
-                }, new Kinetic.OnAuthenticationFailureListener() {
+                },
+                new Kinetic.OnAuthenticationFailureListener() {
                     @Override
                     public void onFailure(final Kinetic.AuthenticationResponse authenticationResponse) {
                         runOnUiThread(new Runnable() {
@@ -209,11 +215,23 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }, new Kinetic.KineticTouchListener() {
+                },
+                new Kinetic.OnDidAuthenticationListener() {
+                    @Override
+                    public void onDidAuthentication() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "Authentication completed !!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                },
+                new Kinetic.KineticTouchListener() {
                     @Override
                     public void onTouch(View view, MotionEvent motionEvent) {
-                        if (motionEvent.getAction() == MotionEvent.ACTION_UP)
-                        {
+                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                             final AlertDialog dialog = new AlertDialog.Builder(mActivity)
                                     .setTitle("Button")
                                     .setMessage("Submit Clicked!!")
