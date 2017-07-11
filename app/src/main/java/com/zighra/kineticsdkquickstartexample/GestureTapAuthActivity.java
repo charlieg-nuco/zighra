@@ -45,7 +45,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
 
         //Integrate Gesture Authentication
         mKinetic = KineticFactory.getKinetic(this);
-        mKinetic.initialContext(ContextName);
+        mKinetic.initializeContext(ContextName);
         mKinetic.attachTapAuthenticator(mTap1, null, "tap1", new Kinetic.KineticTouchListener() {
             @Override
             public void onTouch(View view, MotionEvent motionEvent) {
