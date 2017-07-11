@@ -32,6 +32,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
     private int mModelNotReady = 0;
     private float swipeThreshold = 70f;
     private Activity mActivity = this;
+    private String ContextName = "TapTest";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,8 @@ public class GestureTapAuthActivity extends AppCompatActivity {
 
         //Integrate Gesture Authentication
         mKinetic = KineticFactory.getKinetic(this);
-        mKinetic.attachTapAuthenticator(mTap1, "TapTest", "tap1", new Kinetic.KineticTouchListener() {
+        mKinetic.initialContext(ContextName);
+        mKinetic.attachTapAuthenticator(mTap1, null, "tap1", new Kinetic.KineticTouchListener() {
             @Override
             public void onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP){
@@ -130,6 +132,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                                 @Override
                                                 public void run() {
                                                     Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getReplace(), Toast.LENGTH_SHORT).show();
+                                                    transactionDone();
                                                 }
                                             });
 
@@ -141,6 +144,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                                 @Override
                                                 public void run() {
                                                     Toast.makeText(getApplicationContext(), "Report action failure: " + reportResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                                                    transactionDone();
                                                 }
                                             });
                                         }
@@ -164,6 +168,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                                     @Override
                                                     public void run() {
                                                         Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getReplace(), Toast.LENGTH_SHORT).show();
+                                                        transactionDone();
                                                     }
                                                 });
                                             }
@@ -174,6 +179,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                                     @Override
                                                     public void run() {
                                                         Toast.makeText(getApplicationContext(), "Report action failed: " + reportResponse.getErrorMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                        transactionDone();
                                                     }
                                                 });
                                             }
@@ -185,6 +191,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                             @Override
                                             public void run() {
                                                 Toast.makeText(getApplicationContext(), "Gesture not authenticated", Toast.LENGTH_SHORT).show();
+                                                transactionDone();
                                             }
                                         });
 
@@ -195,6 +202,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Toast.makeText(getApplicationContext(), "Gesture authenticated failure" + authenticationResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                                            transactionDone();
                                         }
                                     });
                                     break;
@@ -211,7 +219,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "Gesture auth failed: " + authenticationResponse.getRawErrors().toString(), Toast.LENGTH_SHORT).show();
-
+                                transactionDone();
                             }
                         });
                     }
@@ -223,7 +231,7 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "Authentication completed !!", Toast.LENGTH_SHORT).show();
-
+                                transactionDone();
                             }
                         });
                     }
@@ -253,6 +261,11 @@ public class GestureTapAuthActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void transactionDone()
+    {
+        mKinetic.dropContext(ContextName);
     }
 
     @Override
