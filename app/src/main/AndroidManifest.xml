@@ -29,13 +29,13 @@
         <!--Configure the SDK-->
         <meta-data
             android:name="zighra_app_key"
-            android:value="8SrW24sl12gaD6M" />
+            android:value="ecCkoC9CkfBORcf" />
         <meta-data
             android:name="zighra_app_secret"
-            android:value="AxqPoKZCizXm6bMxFEC6ONTgp6u63Oyzl2zIb8F+iGWNShS0LdLBf0ZwXiNaTlTvqg=="/>
+            android:value="AvgYHtnb/xmjfkNvtzuyU8rn+jv7BCznALYSXe76/e7ZPDvAS/0dAnNm0o+h2AMQdg=="/>
         <meta-data
             android:name="zighra_app_encryption"
-            android:value="false" />
+            android:value="true" />
     </application>
 
 </manifest>

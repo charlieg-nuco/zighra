@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="50dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="50dp"
-        android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@drawable/green_tick">
 
         <Button
             android:id="@+id/gestureAuth"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="600px"
+            android:layout_height="400px"
+            android:layout_centerInParent="true"
             android:text="Swipe this Button"
             android:textColor="@color/colorPrimary" />
-    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
