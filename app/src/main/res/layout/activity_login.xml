@@ -26,7 +26,7 @@
             android:id="@+id/uCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="uCode"
+            android:hint="password"
             android:maxLines="1" />
 
         <Button

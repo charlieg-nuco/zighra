@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!uName.isEmpty() && !uCode.isEmpty() && mKinetic != null) {
             //User Profile
-            mKinetic.setProfile(uName, uCode,
+            mKinetic.setProfile(uName, uName,
                     new Kinetic.OnSetProfileSuccessListener() {
                         @Override
                         public void onSuccess(Kinetic.ProfileResponse profileResponse) {
