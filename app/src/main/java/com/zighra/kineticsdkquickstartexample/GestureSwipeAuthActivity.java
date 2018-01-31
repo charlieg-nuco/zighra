@@ -46,7 +46,7 @@ public class GestureSwipeAuthActivity extends AppCompatActivity {
                                 mKinetic.reportActionForAuth("allow", new Kinetic.OnReportActionSuccessListener() {
                                     @Override
                                     public void onSuccess(Kinetic.ReportResponse reportResponse) {
-                                        Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getReplace(), Toast.LENGTH_SHORT).show();
                                     }
                                 }, new Kinetic.OnReportActionFailureListener() {
                                     @Override
@@ -64,7 +64,7 @@ public class GestureSwipeAuthActivity extends AppCompatActivity {
                                     mKinetic.reportActionForAuth("allow", new Kinetic.OnReportActionSuccessListener() {
                                         @Override
                                         public void onSuccess(Kinetic.ReportResponse reportResponse) {
-                                            Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Report action successful: " + reportResponse.getReplace(), Toast.LENGTH_SHORT).show();
 
                                         }
                                     }, new Kinetic.OnReportActionFailureListener() {
