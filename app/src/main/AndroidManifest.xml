@@ -22,10 +22,6 @@
             android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".GestureTapAuthActivity"
-            android:parentActivityName=".LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
         <!--Configure the SDK-->
         <meta-data
             android:name="zighra_app_key"

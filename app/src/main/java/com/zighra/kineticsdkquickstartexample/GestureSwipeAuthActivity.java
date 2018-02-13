@@ -59,7 +59,7 @@ public class GestureSwipeAuthActivity extends AppCompatActivity {
                                 // Examine the gesture score
                                 if(authenticationResponse.getScore() > swipeThreshold  ) {
                                     // Gesture authenticated successfully. Respond with report action-allow
-                                    Toast.makeText(getApplicationContext(), "Gesture authenticated", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Gesture authenticated ("+String.valueOf(authenticationResponse.getScore())+")", Toast.LENGTH_SHORT).show();
                                     //Action Reporting
                                     mKinetic.reportActionForAuth("allow", new Kinetic.OnReportActionSuccessListener() {
                                         @Override
@@ -76,7 +76,7 @@ public class GestureSwipeAuthActivity extends AppCompatActivity {
                                 } else {
                                     // Authentication failed. Present authentication UI.
                                     Log.d(TAG, "Gesture failed");
-                                    Toast.makeText(getApplicationContext(), "Gesture not authenticated", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Gesture not authenticated ("+String.valueOf(authenticationResponse.getScore())+")", Toast.LENGTH_SHORT).show();
                                 }
                             break;
                         default:

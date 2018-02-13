@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mUserNameEditText;
     private EditText mUCodeEditText;
     private Button mLoginButton;
-    private Button mTapAuthButton;
     private Button mSwipeAuthButton;
     private Activity mActivity;
 
@@ -36,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         mUserNameEditText = (EditText) findViewById(R.id.uName);
         mUCodeEditText = (EditText) findViewById(R.id.uCode);
         mLoginButton = (Button) findViewById(R.id.login);
-        mTapAuthButton = (Button) findViewById(R.id.tap);
         mSwipeAuthButton = (Button) findViewById(R.id.swipe);
         mKinetic = KineticFactory.getKinetic(this);
 
@@ -51,14 +49,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gestureAuthIntent = new Intent();
                 gestureAuthIntent = new Intent(getApplicationContext(), GestureSwipeAuthActivity.class);
-                startActivity(gestureAuthIntent);
-            }
-        });
-        mTapAuthButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gestureAuthIntent = new Intent();
-                gestureAuthIntent = new Intent(getApplicationContext(), GestureTapAuthActivity.class);
                 startActivity(gestureAuthIntent);
             }
         });
@@ -78,8 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                             performDeviceCheck();
                             mSwipeAuthButton.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
                             mSwipeAuthButton.setEnabled(true);
-                            mTapAuthButton.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
-                            mTapAuthButton.setEnabled(true);
                         }},
                     new Kinetic.OnSetProfileFailureListener() {
                         @Override
