@@ -59,6 +59,7 @@ obj/
 # IntelliJ IDEA
 *.iml
 *.iws
+.idea/*
 /out/
 
 # User-specific configurations
